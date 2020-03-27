@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, KeyboardAvoidingView, TextInput, Button } from "react-native";
+import { Text, KeyboardAvoidingView, TextInput } from "react-native";
 import TextButton from "./TextButton";
 import styles from "./styles";
 class AddCard extends Component {

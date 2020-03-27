@@ -1,17 +1,19 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Text, Button, KeyboardAvoidingView} from "react-native";
+import {StyleSheet, View, Text } from "react-native";
 import {blue, gray, white} from "../utils/colors";
 import TextButton from "./TextButton";
 
 class DeckDetail extends Component {
   handleAddCard = () => {
-    const deck = this.props.route.params.deck;
+    const { deck } = this.props.route.params;
     this.props.navigation.navigate('Add Card', {deck});
   };
 
   handleStartQuiz = () => {
-    console.log("Starting Quiz");
+    const { deck } = this.props.route.params;
+    this.props.navigation.navigate('Quiz', {deck});
   };
+
   render() {
     const { title, questions } = this.props.route.params.deck;
     const length = questions.length;
