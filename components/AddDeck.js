@@ -20,13 +20,16 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state;
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={50}
+        behavior="padding"
+        style={styles.container}
+      >
         <Text style={{fontSize: 20}}>Enter the name of a new flash card deck:</Text>
         <TextInput
           value={title}
           onChangeText={text => this.handleChange(text)}
           placeholder={"Deck Name"}
-          autoFocus={true}
           maxLength={30}
           style={styles.input}
         />
@@ -43,8 +46,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    margin: 20
+    alignItems: "center"
   },
   input: {
     height: 40,

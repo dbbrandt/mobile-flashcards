@@ -43,7 +43,6 @@ export const NavBar = () => {
     <Tabs.Navigator
       initialRouteName="Home"
       tabBarOptions={tabBarOptions}
-      navigationOptions={{headerShown: false}}
     >
       <Tabs.Screen
         name="Home"
