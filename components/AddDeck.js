@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, KeyboardAvoidingView, TextInput, Button } from "react-native";
+import { Text, KeyboardAvoidingView, TextInput, Keyboard } from "react-native";
 import styles from "./styles";
 import TextButton from "./TextButton";
 
@@ -11,8 +11,10 @@ class AddDeck extends Component {
   handleSubmit = () => {
     const { navigate } = this.props.navigation;
     this.setState({title: ""});
+    // Needed for Android when navigating back to main tab.
+    Keyboard.dismiss();
     // Todo: Save new deck
-    navigate('Home');
+    navigate('Flash Cards');
   };
 
   handleChange = (text) => {
