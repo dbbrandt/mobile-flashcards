@@ -41,11 +41,11 @@ export const Tabs =
 export const NavBar = () => {
   return (
     <Tabs.Navigator
-      initialRouteName="Home"
+      initialRouteName="Flash Cards"
       tabBarOptions={tabBarOptions}
     >
       <Tabs.Screen
-        name="Home"
+        name="Flash Cards"
         component={DeckList}
         options={DecksTabIcon}
       />

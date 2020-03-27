@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, StatusBar } from "react-native";
+import { View, StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Constants from "expo-constants";
-import { blue, white } from "./utils/colors";
 import { NavBar } from "./components/NavBar";
 import { createStackNavigator } from "@react-navigation/stack";
 import DeckDetail from "./components/DeckDetail";
 import AddCard from "./components/AddCard";
+import { blue, white } from "./utils/colors";
 
 const CustomStatusBar = ({ backgroundColor, ...props }) => {
   return (
