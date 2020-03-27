@@ -22,7 +22,7 @@ const CustomStatusBar = ({ backgroundColor, ...props }) => {
 
 const DeckStack = createStackNavigator();
 
-const DeckDetailOptions = {
+const HeaderOptions = {
   headerTintColor: white,
   headerStyle: {
     backgroundColor: blue
@@ -36,11 +36,15 @@ export default class App extends Component {
         <CustomStatusBar backgroundColor={blue} barStyle="light-content" />
         <NavigationContainer>
           <DeckStack.Navigator>
-            <DeckStack.Screen name="Home" component={NavBar} />
+            <DeckStack.Screen
+              name="Flash Cards"
+              component={NavBar}
+              options={HeaderOptions}
+            />
             <DeckStack.Screen
               name="Deck Detail"
               component={DeckDetail}
-              options={DeckDetailOptions}
+              options={HeaderOptions}
             />
           </DeckStack.Navigator>
         </NavigationContainer>

@@ -1,12 +1,34 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import {StyleSheet, View, Text, Button, KeyboardAvoidingView} from "react-native";
+import {blue, gray, white} from "../utils/colors";
+import TextButton from "./TextButton";
 
 class DeckDetail extends Component {
+  handleAddCard = () => {
+    console.log("Add Card");
+  };
+
+  handleStartQuiz = () => {
+    console.log("Starting Quiz");
+  };
   render() {
-    const { deck } = this.props.route.params;
+    const { title, questions } = this.props.route.params.deck;
+    const length = questions.length;
+    const cardLabel = length !== 1 ? "cards" : "card";
     return (
       <View style={styles.container}>
-        <Text>{deck}</Text>
+        <View style={styles.detail}>
+          <Text style={{fontSize: 30, padding: 10}}>{title}</Text>
+          <Text style={{fontSize: 20}}>({length} {cardLabel})</Text>
+        </View>
+        <View style={styles.buttons}>
+          <TextButton style={styles.addButton} onPress={this.handleAddCard}>
+            Add Card
+          </TextButton>
+          <TextButton style={styles.quizButton} onPress={this.handleStartQuiz}>
+            Start Quiz
+          </TextButton>
+        </View>
       </View>
     );
   }
@@ -16,8 +38,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
+    alignItems: "stretch"
+  },
+  detail: {
+    flex: 1,
     alignItems: "center",
-    margin: 20
+    justifyContent: "center"
+  },
+  buttons: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  addButton: {
+    width: 150,
+    height: 40,
+    padding: 10,
+    margin: 5,
+    color: white,
+    backgroundColor: blue
+  },
+  quizButton: {
+    width: 150,
+    height: 40,
+    padding: 10,
+    margin: 5,
+    color: white,
+    backgroundColor: gray
   }
 });
 

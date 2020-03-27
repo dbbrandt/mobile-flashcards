@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, KeyboardAvoidingView, TextInput, Button } from "react-native";
-import { gray } from "../utils/colors";
+import {gray, white, blue} from "../utils/colors";
+import TextButton from "./TextButton";
 
 class AddDeck extends Component {
   state = {
@@ -33,11 +34,9 @@ class AddDeck extends Component {
           maxLength={30}
           style={styles.input}
         />
-        <Button
-          title={"Submit"}
-          onPress={this.handleSubmit}
-          disabled={!title}
-        />
+        <TextButton style={styles.button} onPress={this.handleSubmit} disabled={!title}>
+          Submit
+        </TextButton>
       </KeyboardAvoidingView>
     );
   }
@@ -55,6 +54,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 20,
     padding: 10
+  },
+  button: {
+    width: 150,
+    height: 40,
+    padding: 10,
+    margin: 5,
+    color: white,
+    backgroundColor: blue
   }
 
 });
