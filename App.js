@@ -6,6 +6,7 @@ import { blue, white } from "./utils/colors";
 import { NavBar } from "./components/NavBar";
 import { createStackNavigator } from "@react-navigation/stack";
 import DeckDetail from "./components/DeckDetail";
+import AddCard from "./components/AddCard";
 
 const CustomStatusBar = ({ backgroundColor, ...props }) => {
   return (
@@ -44,6 +45,11 @@ export default class App extends Component {
             <DeckStack.Screen
               name="Deck Detail"
               component={DeckDetail}
+              options={HeaderOptions}
+            />
+            <DeckStack.Screen
+              name="Add Card"
+              component={AddCard}
               options={HeaderOptions}
             />
           </DeckStack.Navigator>

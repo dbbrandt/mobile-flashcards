@@ -5,7 +5,8 @@ import TextButton from "./TextButton";
 
 class DeckDetail extends Component {
   handleAddCard = () => {
-    console.log("Add Card");
+    const deck = this.props.route.params.deck;
+    this.props.navigation.navigate('Add Card', {deck});
   };
 
   handleStartQuiz = () => {
