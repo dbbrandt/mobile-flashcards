@@ -44,14 +44,16 @@ class DeckList extends Component {
     return (
       <View style={styles.container}>
         {Object.values(decks).map((deck) => (
-          <View key={deck.title} style={styles.item}>
-            <TouchableOpacity onPress={() => {
-              const { navigate } = this.props.navigation;
-              navigate('Deck Detail', {deck});
-            }}>
-              <ItemDetail deck={deck}/>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            key={deck.title}
+            style={styles.item}
+            onPress={() => {
+            const { navigate } = this.props.navigation;
+            navigate('Deck Detail', {deck});
+            }}
+          >
+            <ItemDetail deck={deck}/>
+          </TouchableOpacity>
           ))}
       </View>
     );
