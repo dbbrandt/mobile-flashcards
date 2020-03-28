@@ -38,6 +38,10 @@ class DeckList extends Component {
             answer: 'The combination of a function and the lexical environment within which that function was declared.'
           }
         ]
+      },
+      Ruby: {
+        title: 'Ruby',
+        questions: []
       }
     };
     const count = 3;

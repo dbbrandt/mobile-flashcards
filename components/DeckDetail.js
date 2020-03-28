@@ -28,7 +28,11 @@ class DeckDetail extends Component {
           <TextButton style={styles.addButton} onPress={this.handleAddCard}>
             Add Card
           </TextButton>
-          <TextButton style={styles.quizButton} onPress={this.handleStartQuiz}>
+          <TextButton
+            disabled={!length}
+            style={styles.quizButton}
+            onPress={this.handleStartQuiz}
+          >
             Start Quiz
           </TextButton>
         </View>
