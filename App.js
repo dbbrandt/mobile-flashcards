@@ -10,6 +10,7 @@ import { blue, white } from "./utils/colors";
 import CardDetail from "./components/CardDetail";
 import Quiz from "./components/Quiz";
 import QuizResults from "./components/QuizResults";
+import { setLocalNotification } from "./utils/helpers";
 
 const CustomStatusBar = ({ backgroundColor, ...props }) => {
   return (
@@ -34,6 +35,9 @@ const HeaderOptions = {
 };
 
 export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
   render() {
     return (
       <View style={{ flex: 1 }}>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CardDetail from "./CardDetail";
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 class Quiz extends Component {
   state = {
@@ -15,6 +16,9 @@ class Quiz extends Component {
   componentDidMount() {
     const { deck } = this.props.route.params;
     this.setState({currentTitle: deck.title, totalCards: deck.questions.length});
+    // When a user takes a quiz clear and reset their notification alert.
+    clearLocalNotification()
+      .then(setLocalNotification())
   }
 
   handleSubmit = (card, correct) => {
