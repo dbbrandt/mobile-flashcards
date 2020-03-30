@@ -9,6 +9,7 @@ import AddCard from "./components/AddCard";
 import { blue, white } from "./utils/colors";
 import CardDetail from "./components/CardDetail";
 import Quiz from "./components/Quiz";
+import QuizResults from "./components/QuizResults";
 
 const CustomStatusBar = ({ backgroundColor, ...props }) => {
   return (
@@ -66,7 +67,7 @@ export default class App extends Component {
             />
             <DeckStack.Screen
               name="Quiz Results"
-              component={CardDetail}
+              component={QuizResults}
               options={HeaderOptions}
             />
           </DeckStack.Navigator>

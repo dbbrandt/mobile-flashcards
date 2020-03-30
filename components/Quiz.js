@@ -4,6 +4,11 @@ import CardDetail from "./CardDetail";
 class Quiz extends Component {
   handleSubmit = (card, correct) => {
     console.log(`handleSubmit Quiz correct: ${correct} card: `,card);
+    const results = {
+      correct: 70,
+      incorrect: 30
+    };
+    this.props.navigation.navigate('Quiz Results', {results})
   };
 
   render() {
