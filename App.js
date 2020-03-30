@@ -64,6 +64,11 @@ export default class App extends Component {
               component={CardDetail}
               options={HeaderOptions}
             />
+            <DeckStack.Screen
+              name="Quiz Results"
+              component={CardDetail}
+              options={HeaderOptions}
+            />
           </DeckStack.Navigator>
         </NavigationContainer>
       </View>

@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Text } from "react-native";
-import {blue, gray, white} from "../utils/colors";
+import { StyleSheet, View, Text } from "react-native";
+import { blue, gray, white } from "../utils/colors";
 import TextButton from "./TextButton";
 
 class DeckDetail extends Component {
   handleAddCard = () => {
     const { deck } = this.props.route.params;
-    this.props.navigation.navigate('Add Card', {deck});
+    this.props.navigation.navigate("Add Card", { deck });
   };
 
   handleStartQuiz = () => {
     const { deck } = this.props.route.params;
-    this.props.navigation.navigate('Quiz', {deck});
+    this.props.navigation.navigate("Quiz", { deck });
   };
 
   render() {
@@ -21,8 +21,10 @@ class DeckDetail extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.detail}>
-          <Text style={{fontSize: 30, padding: 10}}>{title}</Text>
-          <Text style={{fontSize: 20}}>({length} {cardLabel})</Text>
+          <Text style={{ fontSize: 30, padding: 10 }}>{title}</Text>
+          <Text style={{ fontSize: 20 }}>
+            ({length} {cardLabel})
+          </Text>
         </View>
         <View style={styles.buttons}>
           <TextButton style={styles.addButton} onPress={this.handleAddCard}>
