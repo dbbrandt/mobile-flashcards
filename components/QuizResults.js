@@ -9,15 +9,15 @@ const PoorIcon = () => <Ionicons name="md-star-half" size={60} color={blue} />;
 class QuizResults extends Component {
 
   render() {
-    const { correct, incorrect } = this.props.route.params.results;
-    const total = correct + incorrect;
-    const pct_correct = (100 * correct / total).toFixed(1);
+    const { correct, answered } = this.props.route.params;
+
+    const pct_correct = (100 * correct / answered).toFixed(1);
     const ResultIcon = pct_correct >= 80 ? GoodIcon : PoorIcon;
     return (
       <View style={styles.container}>
         <ResultIcon/>
         <Text style={styles.result}>Score: {pct_correct}%</Text>
-        <Text style={styles.details}>Answered: { total }</Text>
+        <Text style={styles.details}>Answered: { answered }</Text>
         <Text style={styles.details}>Correct: { correct }</Text>
       </View>
     );

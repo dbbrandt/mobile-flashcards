@@ -1,7 +1,22 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import TextButton from "./TextButton";
 import { crimson, forestGreen, white, blue } from "../utils/colors";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+
+
+Completed = () => {
+  const ThumbsUp = () => Platform.OS === "ios" ?
+    <Ionicons name="ios-thumbs-up" size={60} color={blue} />
+    :
+    <MaterialIcons name="thumb-up" size={60} color={blue} />
+  return (
+    <View style={styles.detail}>
+      <Text style={{ fontSize: 30, padding: 10, textAlign: "center" }}>Quiz Completed</Text>
+      <ThumbsUp/>
+    </View>
+  );
+};
 
 class CardDetail extends Component {
   state = {
@@ -14,12 +29,16 @@ class CardDetail extends Component {
   };
 
   render() {
-    const { card, onSubmit } = this.props;
+    const { card, onSubmit, current, totalCards, completed } = this.props;
     const { side } = this.state;
     const { question, answer } = card;
     const text = side === "Answer" ? question : answer;
+    if (completed) return <Completed/>;
     return (
       <View style={styles.container}>
+        <View>
+          <Text style={{fontSize: 25, textAlign: "right"}}>{current+1} of {totalCards}</Text>
+        </View>
         <TouchableOpacity onPress={this.handleFlip} style={styles.detail}>
           <Text style={{ fontSize: 30, padding: 10, textAlign: "center" }}>{text}</Text>
           <Text style={{ fontSize: 20, padding: 10, color: blue }}>{side}</Text>
