@@ -1,24 +1,22 @@
 import React, { Component } from "react";
-import {StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { blue, gray } from "../utils/colors";
-import {SimpleLineIcons, Ionicons} from "@expo/vector-icons";
-
-const GoodIcon = () => <SimpleLineIcons name="emotsmile" size={60} color={blue} />;
-const PoorIcon = () => <Ionicons name="md-star-half" size={60} color={blue} />;
+import { SimpleLineIcons, Ionicons } from "@expo/vector-icons";
 
 class QuizResults extends Component {
-
   render() {
     const { correct, answered } = this.props.route.params;
-
-    const pct_correct = (100 * correct / answered).toFixed(1);
-    const ResultIcon = pct_correct >= 80 ? GoodIcon : PoorIcon;
+    const pct_correct = ((100 * correct) / answered).toFixed(1);
     return (
       <View style={styles.container}>
-        <ResultIcon/>
+        {pct_correct >= 80 ? (
+          <SimpleLineIcons name="emotsmile" size={60} color={blue} />
+        ) : (
+          <Ionicons name="md-star-half" size={60} color={blue} />
+        )}
         <Text style={styles.result}>Score: {pct_correct}%</Text>
-        <Text style={styles.details}>Answered: { answered }</Text>
-        <Text style={styles.details}>Correct: { correct }</Text>
+        <Text style={styles.details}>Answered: {answered}</Text>
+        <Text style={styles.details}>Correct: {correct}</Text>
       </View>
     );
   }
