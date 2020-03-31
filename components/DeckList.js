@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import {blue, white} from "../utils/colors";
-import { getDecks } from "../utils/api";
-import { setDecks } from "../actions";
+import { initDecks, retrieveDecks } from "../utils/api";
+import {setDecks} from "../actions";
 
 const ItemDetail = ({ deck }) => {
   const { title, questions } = deck;
@@ -28,7 +28,8 @@ const NoDecks = () => {
 class DeckList extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
-    getDecks().then((decks) => dispatch(setDecks(decks)))
+    initDecks();
+    retrieveDecks().then((decks) => dispatch(setDecks(decks)));
   }
 
   render() {
@@ -41,8 +42,8 @@ class DeckList extends Component {
             key={deck.title}
             style={styles.item}
             onPress={() => {
-            const { navigate } = this.props.navigation;
-            navigate('Deck Detail', {deck});
+              const { navigate } = this.props.navigation;
+              navigate('Deck Detail', {title: deck.title});
             }}
           >
             <ItemDetail deck={deck}/>

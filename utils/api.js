@@ -31,12 +31,12 @@ export const defaultDecks = {
   }
 };
 
-export function getDecks () {
+export function retrieveDecks () {
   return AsyncStorage.getItem(CARD_STORAGE_KEY)
     .then((results) => JSON.parse(results))
 }
 
-export function setDecks(decks = defaultDecks) {
+export function initDecks(decks = defaultDecks) {
   return AsyncStorage.mergeItem(
     CARD_STORAGE_KEY,
     JSON.stringify(defaultDecks)
@@ -52,19 +52,23 @@ export function addDeck({ key }) {
   );
 }
 
-export function deleteDeck(key) {
+export function deleteDeck(deck) {
+  const { title } = deck;
   return AsyncStorage.getItem(CARD_STORAGE_KEY).then(results => {
     const data = JSON.parse(results);
-    data[key] = undefined;
-    delete data[key];
+    data[title] = undefined;
+    delete data[title];
     AsyncStorage.setItem(CARD_STORAGE_KEY, JSON.stringify(data));
   });
 }
 
-export function addCard(key, card) {
+export function saveCard(deck, card) {
+  const { title } = deck;
+  console.log("saveCard title: ", title);
   return AsyncStorage.getItem(CARD_STORAGE_KEY).then(results => {
     const data = JSON.parse(results);
-    if (data[key]) data[key]["questions"].push(card);
+    data[title]["questions"].push(card);
+    console.log("saveCard results data: ", data[title]);
     AsyncStorage.setItem(CARD_STORAGE_KEY, JSON.stringify(data));
   });
 }

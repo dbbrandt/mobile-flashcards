@@ -28,12 +28,19 @@ class CardDetail extends Component {
     this.setState({ side: side === "Question" ? "Answer" : "Question" });
   };
 
-  render() {
-    const { card, onSubmit, current, totalCards, completed } = this.props;
+  getText = (card) => {
     const { side } = this.state;
     const { question, answer } = card;
-    const text = side === "Answer" ? question : answer;
+    return {
+      text: side === 'Question' ? question : answer,
+      flipText: side === 'Question' ? "answer" : "question"
+    }
+  };
+
+  render() {
+    const { card, onSubmit, current, totalCards, completed } = this.props;
     if (completed) return <Completed/>;
+    const { text, flipText } = this.getText(card);
     return (
       <View style={styles.container}>
         <View>
@@ -41,7 +48,7 @@ class CardDetail extends Component {
         </View>
         <TouchableOpacity onPress={this.handleFlip} style={styles.detail}>
           <Text style={{ fontSize: 30, padding: 10, textAlign: "center" }}>{text}</Text>
-          <Text style={{ fontSize: 20, padding: 10, color: blue }}>{side}</Text>
+          <Text style={{ fontSize: 20, padding: 10, color: blue }}>{flipText}</Text>
         </TouchableOpacity>
         <View style={styles.buttons}>
           <TextButton

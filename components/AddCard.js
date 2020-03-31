@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { Text, KeyboardAvoidingView, TextInput } from "react-native";
 import TextButton from "./TextButton";
 import styles from "./styles";
+import { saveCard } from "../utils/api";
+import {addCard} from "../actions";
 class AddCard extends Component {
   state = {
     question: "",
@@ -9,10 +12,13 @@ class AddCard extends Component {
   };
 
   handleSubmit = () => {
+    const { dispatch } = this.props;
+    const { deck } = this.props.route.params;
     const { question, answer } = this.state;
-    const { deck } = this.props;
-    this.setState({question: "", answer: ""});
-    // ToDo: Save  new card
+    const card = { question, answer };
+    console.log("addCard handleSubmit deck: ", deck );
+    saveCard(deck, card).then(() =>
+      dispatch(addCard({ deck, card })));
     this.props.navigation.goBack();
   };
 
@@ -49,4 +55,4 @@ class AddCard extends Component {
   }
 }
 
-export default AddCard;
+export default connect()(AddCard);

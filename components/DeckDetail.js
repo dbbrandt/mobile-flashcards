@@ -1,21 +1,23 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { StyleSheet, View, Text } from "react-native";
 import { blue, gray, white } from "../utils/colors";
 import TextButton from "./TextButton";
 
 class DeckDetail extends Component {
   handleAddCard = () => {
-    const { deck } = this.props.route.params;
+    const { deck } = this.props;
     this.props.navigation.navigate("Add Card", { deck });
   };
 
   handleStartQuiz = () => {
-    const { deck } = this.props.route.params;
+    const { deck } = this.props;
     this.props.navigation.navigate("Quiz", { deck });
   };
 
   render() {
-    const { title, questions } = this.props.route.params.deck;
+    console.log("DeckDetail render deck: ", this.props.deck);
+    const { title, questions } = this.props.deck;
     const length = questions.length;
     const cardLabel = length !== 1 ? "cards" : "card";
     return (
@@ -42,6 +44,16 @@ class DeckDetail extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, props) => {
+  const { title } = props.route.params;
+  return {
+    ...props,
+    deck: state[title]
+  }
+};
+
+export default connect(mapStateToProps)(DeckDetail);
 
 const styles = StyleSheet.create({
   container: {
@@ -77,4 +89,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckDetail;
+

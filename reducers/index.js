@@ -8,11 +8,13 @@ const decks = createReducer({}, {
     state[key] = {title: key, questions: []}
   },
   [addCard]: (state, action) => {
-    const { key, card } = action.payload;
-    state[key].questions.push(card)
+    console.log("Reducer addCard action: ", action);
+    const { deck, card } = action.payload;
+    state[deck.title].questions.push(card)
   },
   [deleteDeck]: (state, action) => {
-    delete state[action.payload.key]
+    const { deck } = action.payload;
+    delete state[deck.title]
   }
 });
 

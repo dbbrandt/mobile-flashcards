@@ -47,7 +47,6 @@ const store = configureStore({
 export default class App extends Component {
   componentDidMount() {
     setLocalNotification();
-    setDecks();
   }
 
   render() {
