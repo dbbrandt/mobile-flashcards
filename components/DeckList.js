@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { white } from "../utils/colors";
+import {blue, white} from "../utils/colors";
+import { getDecks } from "../utils/api";
+import { setDecks } from "../actions";
 
 const ItemDetail = ({ deck }) => {
   const { title, questions } = deck;
@@ -14,37 +17,23 @@ const ItemDetail = ({ deck }) => {
   )
 };
 
+const NoDecks = () => {
+  return (
+    <View style={styles.item}>
+      <Text style={{fontSize: 20, color: blue}}>Add some decks to begin studying.</Text>
+    </View>
+  )
+};
+
 class DeckList extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    getDecks().then((decks) => dispatch(setDecks(decks)))
+  }
+
   render() {
-    const decks = {
-      React: {
-        title: 'React',
-        questions: [
-          {
-            question: 'What is React?',
-            answer: 'A library for managing user interfaces'
-          },
-          {
-            question: 'Where do you make Ajax requests in React?',
-            answer: 'The componentDidMount lifecycle event'
-          }
-        ]
-      },
-      JavaScript: {
-        title: 'JavaScript',
-        questions: [
-          {
-            question: 'What is a closure?',
-            answer: 'The combination of a function and the lexical environment within which that function was declared.'
-          }
-        ]
-      },
-      Ruby: {
-        title: 'Ruby',
-        questions: []
-      }
-    };
-    const count = 3;
+    const { decks } = this.props;
+    if (!Object.keys(decks).length) return <NoDecks/>;
     return (
       <View style={styles.container}>
         {Object.values(decks).map((deck) => (
@@ -90,4 +79,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckList;
+const mapStateToProps = (state) => {
+  return ({
+  decks: state
+  })
+};
+
+export default connect(mapStateToProps)(DeckList);
