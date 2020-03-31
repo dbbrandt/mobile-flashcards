@@ -2,18 +2,12 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import TextButton from "./TextButton";
 import { crimson, forestGreen, white, blue } from "../utils/colors";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 
 Completed = () => {
-  const ThumbsUp = () => Platform.OS === "ios" ?
-    <Ionicons name="ios-thumbs-up" size={60} color={blue} />
-    :
-    <MaterialIcons name="thumb-up" size={60} color={blue} />
   return (
     <View style={styles.detail}>
       <Text style={{ fontSize: 30, padding: 10, textAlign: "center" }}>Quiz Completed</Text>
-      <ThumbsUp/>
     </View>
   );
 };
