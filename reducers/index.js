@@ -4,11 +4,10 @@ import { setDecks, addDeck, addCard, deleteDeck } from "../actions";
 const decks = createReducer({}, {
   [setDecks]: (state, action) => action.payload,
   [addDeck]: (state, action) => {
-    const { key } = action.payload;
-    state[key] = {title: key, questions: []}
+    const { title } = action.payload;
+    state[title] = {title: title, questions: []}
   },
   [addCard]: (state, action) => {
-    console.log("Reducer addCard action: ", action);
     const { deck, card } = action.payload;
     state[deck.title].questions.push(card)
   },

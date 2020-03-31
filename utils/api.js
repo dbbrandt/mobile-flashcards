@@ -43,11 +43,11 @@ export function initDecks(decks = defaultDecks) {
   );
 }
 
-export function addDeck({ key }) {
+export function createDeck(title) {
   return AsyncStorage.mergeItem(
     CARD_STORAGE_KEY,
     JSON.stringify({
-      [key]: { title: key, questions: [] }
+      [title]: { title: title, questions: [] }
     })
   );
 }
@@ -64,11 +64,9 @@ export function deleteDeck(deck) {
 
 export function saveCard(deck, card) {
   const { title } = deck;
-  console.log("saveCard title: ", title);
   return AsyncStorage.getItem(CARD_STORAGE_KEY).then(results => {
     const data = JSON.parse(results);
     data[title]["questions"].push(card);
-    console.log("saveCard results data: ", data[title]);
     AsyncStorage.setItem(CARD_STORAGE_KEY, JSON.stringify(data));
   });
 }

@@ -16,7 +16,6 @@ class AddCard extends Component {
     const { deck } = this.props.route.params;
     const { question, answer } = this.state;
     const card = { question, answer };
-    console.log("addCard handleSubmit deck: ", deck );
     saveCard(deck, card).then(() =>
       dispatch(addCard({ deck, card })));
     this.props.navigation.goBack();

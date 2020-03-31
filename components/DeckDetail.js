@@ -16,7 +16,6 @@ class DeckDetail extends Component {
   };
 
   render() {
-    console.log("DeckDetail render deck: ", this.props.deck);
     const { title, questions } = this.props.deck;
     const length = questions.length;
     const cardLabel = length !== 1 ? "cards" : "card";

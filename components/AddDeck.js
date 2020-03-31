@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Text, KeyboardAvoidingView, TextInput, Keyboard } from "react-native";
 import styles from "./styles";
 import TextButton from "./TextButton";
+import {createDeck} from "../utils/api";
+import {addDeck} from "../actions";
 
 class AddDeck extends Component {
   state = {
@@ -10,10 +13,12 @@ class AddDeck extends Component {
 
   handleSubmit = () => {
     const { navigate } = this.props.navigation;
+    const { title } = this.state;
     this.setState({title: ""});
     // Needed for Android when navigating back to main tab.
     Keyboard.dismiss();
-    // Todo: Save new deck
+    createDeck(title).then(() =>
+      this.props.dispatch(addDeck({ title })));
     navigate('Flash Cards');
   };
 
@@ -44,4 +49,4 @@ class AddDeck extends Component {
     );
   }
 }
-export default AddDeck;
+export default connect()(AddDeck);
