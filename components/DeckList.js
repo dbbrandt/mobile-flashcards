@@ -5,6 +5,7 @@ import { blue, white } from "../utils/colors";
 import { initDecks, retrieveDecks } from "../utils/api";
 import { setDecks } from "../actions/decks";
 import { setLocalNotification } from "../utils/helpers";
+import {initQuiz} from "../actions/quiz";
 
 const ItemDetail = ({ deck }) => {
   const { title, questions } = deck;
@@ -35,6 +36,15 @@ class DeckList extends Component {
     setLocalNotification();
   }
 
+  handleClick = (deck) => {
+    const { dispatch, quiz } = this.props;
+    const { navigate } = this.props.navigation;
+    const { title } = deck;
+    if (!quiz[title]) dispatch(initQuiz({ deck }));
+    navigate("Deck Detail", { title });
+
+  };
+
   render() {
     const { decks } = this.props;
     if (!Object.keys(decks).length) return <NoDecks />;
@@ -44,10 +54,7 @@ class DeckList extends Component {
           <TouchableOpacity
             key={deck.title}
             style={styles.item}
-            onPress={() => {
-              const { navigate } = this.props.navigation;
-              navigate("Deck Detail", { title: deck.title });
-            }}
+            onPress={() => this.handleClick(deck)}
           >
             <ItemDetail deck={deck} />
           </TouchableOpacity>
@@ -83,9 +90,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ decks })  => {
+const mapStateToProps = ({ decks, quiz })  => {
   return {
-    decks
+    decks,
+    quiz
   };
 };
 

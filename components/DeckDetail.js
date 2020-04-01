@@ -3,21 +3,24 @@ import { connect } from "react-redux";
 import { StyleSheet, View, Text } from "react-native";
 import { blue, gray, white } from "../utils/colors";
 import TextButton from "./TextButton";
+import {initQuiz} from "../actions/quiz";
 
 class DeckDetail extends Component {
-  handleAddCard = () => {
-    const { deck } = this.props;
+  handleAddCard = (deck) => {
     this.props.navigation.navigate("Add Card", { deck });
   };
 
-  handleStartQuiz = () => {
-    const { deck } = this.props;
+  handleStartQuiz = (deck) => {
     this.props.navigation.navigate("Quiz", { deck });
   };
 
+  handleReset = (deck) => {
+    this.props.dispatch(initQuiz({ deck }))
+  };
+
   render() {
-    const { title, questions } = this.props.deck;
-    const { cards, correct, attempts, completions } = this.props
+    const { deck, cards, correct, attempts, completions } = this.props;
+    const { title, questions } = deck;
     const length = questions.length;
     const cardLabel = length !== 1 ? "cards" : "card";
     return (
@@ -34,15 +37,18 @@ class DeckDetail extends Component {
           <Text style={styles.resultsHeading}>Quizes</Text>
           <Text style={styles.results}>Started: {attempts}</Text>
           <Text style={styles.results}>Completed: {completions}</Text>
+          <TextButton style={styles.resetButton} onPress={() => this.handleReset(deck)}>
+            Reset
+          </TextButton>
         </View>
         <View style={styles.buttons}>
-          <TextButton style={styles.addButton} onPress={this.handleAddCard}>
+          <TextButton style={styles.addButton} onPress={() => this.handleAddCard(deck)}>
             Add Card
           </TextButton>
           <TextButton
             disabled={!length}
             style={styles.quizButton}
-            onPress={this.handleStartQuiz}
+            onPress={() => this.handleStartQuiz(deck)}
           >
             Start Quiz
           </TextButton>
@@ -58,7 +64,7 @@ const mapStateToProps = ({ decks, quiz }, props) => {
   return {
     ...props,
     cards,
-    correct: (100 * correct / cards ).toFixed(0),
+    correct: correct ? (100 * correct / cards ).toFixed(0) : 0,
     attempts,
     completions,
     deck: decks[title]
@@ -80,7 +86,7 @@ const styles = StyleSheet.create({
   },
   deckHeading: {
     fontSize: 30,
-    marginTop: 200,
+    marginTop: 100,
     padding: 10,
     color: blue
   },
@@ -97,6 +103,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  resetButton: {
+    margin: 10,
+    padding: 5,
+    color: white,
+    backgroundColor: gray
   },
   addButton: {
     width: 150,

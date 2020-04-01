@@ -1,5 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { attemptQuiz, completeQuiz, viewCard } from "../actions/quiz";
+import {attemptQuiz, initQuiz, completeQuiz, viewCard} from "../actions/quiz";
+
+const initialResults = {
+  cards: 0,
+  correct: 0,
+  attempts: 0,
+  completions: 0
+};
 
 const quiz = createReducer(
   {},
@@ -14,17 +21,21 @@ const quiz = createReducer(
       if (state[title]) {
         state[title]["attempts"] += 1;
       } else {
-        state[title] = {
-          cards: 0,
-          correct: 0,
-          attempts: 1,
-          completions: 0
-        };
+        state[title] = initialResults;
+        state[title]["attempts"] = 1;
       }
     },
     [completeQuiz]: (state, action) => {
       const { title } = action.payload.deck;
       state[title]["completions"] += 1;
+    },
+    [initQuiz]: (state, action) => {
+      if (action.payload && action.payload.deck) {
+        const { title } = action.payload.deck;
+        state[title] = initialResults;
+      } else {
+        return {}
+      }
     }
   }
 );
