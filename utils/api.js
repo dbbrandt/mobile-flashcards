@@ -37,11 +37,12 @@ export function retrieveDecks () {
 }
 
 export function initDecks(decks = defaultDecks) {
-  return AsyncStorage.mergeItem(
+  return AsyncStorage.setItem(
     CARD_STORAGE_KEY,
-    JSON.stringify(defaultDecks)
-  );
+    JSON.stringify(decks)
+  ).then(() => decks);
 }
+
 
 export function createDeck(title) {
   return AsyncStorage.mergeItem(
@@ -50,16 +51,6 @@ export function createDeck(title) {
       [title]: { title: title, questions: [] }
     })
   );
-}
-
-export function deleteDeck(deck) {
-  const { title } = deck;
-  return AsyncStorage.getItem(CARD_STORAGE_KEY).then(results => {
-    const data = JSON.parse(results);
-    data[title] = undefined;
-    delete data[title];
-    AsyncStorage.setItem(CARD_STORAGE_KEY, JSON.stringify(data));
-  });
 }
 
 export function saveCard(deck, card) {

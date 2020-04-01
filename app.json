@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Simple flash card app",
+    "githubUrl": "https://github.com/dbbrandt/mobile-flashcards.git"
   }
 }

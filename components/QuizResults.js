@@ -7,10 +7,8 @@ import TextButton from "./TextButton";
 class QuizResults extends Component {
   render() {
     const { navigate } = this.props.navigation;
-    const { deck, handleRestart, correct, answered } = this.props.route.params;
+    const { deck, correct, answered } = this.props.route.params;
     const pct_correct = ((100 * correct) / answered).toFixed(1);
-    // Reset quiz for back and button navigation returning to quiz
-    handleRestart();
     return (
       <View style={styles.container}>
         <View style={styles.results}>
@@ -28,7 +26,7 @@ class QuizResults extends Component {
           <TextButton
             style={styles.restartButton}
             onPress={() => {
-              navigate('Quiz', { deck })
+              navigate('Quiz', { deck, restart: true })
             }}
           >
             Restart Quiz

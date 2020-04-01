@@ -3,6 +3,7 @@ import React from "react";
 import { AsyncStorage } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
+import {addNotification} from "../actions/decks";
 
 const NOTIFICATION_KEY = 'FlashCards:notifications';
 
@@ -39,7 +40,7 @@ export function setLocalNotification() {
 
             let tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
-            tomorrow.setHours(20);
+            tomorrow.setHours(10);
             tomorrow.setMinutes(0);
 
             Notifications.scheduleLocalNotificationAsync(createNotification(), {

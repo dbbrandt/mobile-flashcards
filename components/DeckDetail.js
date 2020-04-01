@@ -44,11 +44,11 @@ class DeckDetail extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = ({ decks }, props) => {
   const { title } = props.route.params;
   return {
     ...props,
-    deck: state[title]
+    deck: decks[title]
   }
 };
 

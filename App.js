@@ -12,8 +12,6 @@ import { blue, white } from "./utils/colors";
 import CardDetail from "./components/CardDetail";
 import Quiz from "./components/Quiz";
 import QuizResults from "./components/QuizResults";
-import { setLocalNotification } from "./utils/helpers";
-import { setDecks } from "./utils/api";
 import middleware from './middleware';
 import reducer from './reducers';
 
@@ -45,10 +43,6 @@ const store = configureStore({
 });
 
 export default class App extends Component {
-  componentDidMount() {
-    setLocalNotification();
-  }
-
   render() {
     return (
       <Provider store={store}>

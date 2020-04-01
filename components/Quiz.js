@@ -1,13 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import CardDetail from "./CardDetail";
 import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
-import {initialize} from "expo/build/Payments";
-
+import { completeQuiz, startQuiz } from "../actions/quiz";
 
 const InitalData = {
   current: 0,
   totalCards: 0,
-  completed: false,
   answeredCount: 0,
   correctCount: 0,
   currentTitle: "",
@@ -18,14 +17,15 @@ class Quiz extends Component {
   state = InitalData;
 
   componentDidMount() {
-    this.handleStartQuiz();
+    this.handleInitQuiz();
     // When a user takes a quiz clear and reset their notification alert.
-    clearLocalNotification()
-      .then(setLocalNotification())
+    clearLocalNotification().then(setLocalNotification());
   }
 
-  handleStartQuiz = () => {
+  handleInitQuiz = () => {
     const { deck } = this.props.route.params;
+    const { dispatch } = this.props;
+    dispatch(startQuiz());
     this.setState({
       ...InitalData,
       currentTitle: deck.title,
@@ -34,40 +34,52 @@ class Quiz extends Component {
   };
 
   handleSubmit = (card, correct) => {
-    const { current, totalCards, answeredCount, correctCount, answerList } = this.state;
-    this.setState({
-      current: current + 1,
-      completed: current + 1 >= totalCards,
-      answeredCount: answeredCount + 1,
-      correctCount: correctCount + ( correct ? 1 : 0 ),
-      questionsAnswered: answerList.push(card)
-    });
+    const { dispatch } = this.props;
+    const { navigate } = this.props.navigation;
+    const { deck } = this.props.route.params;
+    const {
+      current,
+      totalCards,
+      answeredCount,
+      correctCount,
+      answerList
+    } = this.state;
+
+    if (current + 1 >= totalCards) {
+      dispatch(completeQuiz());
+      navigate("Quiz Results", {
+        deck,
+        answered: answeredCount + 1,
+        correct: correctCount + (correct ? 1 : 0)
+      });
+      this.handleInitQuiz();
+    } else {
+      this.setState({
+        current: current + 1,
+        answeredCount: answeredCount + 1,
+        correctCount: correctCount + (correct ? 1 : 0),
+        questionsAnswered: answerList.push(card)
+      });
+    }
   };
 
   render() {
     const { deck } = this.props.route.params;
-    const { navigate } = this.props.navigation;
-    const { current, completed, totalCards, correctCount, answeredCount } = this.state;
-    const card = deck.questions[completed ? totalCards - 1 : current];
+    const { completed } = this.props.quiz;
+    const { current, totalCards } = this.state;
+    const card = deck.questions[current];
     if (completed) {
-      navigate('Quiz Results', {
-        deck,
-        handleRestart: this.handleStartQuiz,
-        correct: correctCount,
-        answered: answeredCount,
-        completed: completed
-      });
     }
     return (
       <CardDetail
         card={card}
-        completed={false}
+        completed={completed}
         current={current}
         totalCards={totalCards}
         onSubmit={this.handleSubmit}
       />
-    )
+    );
   }
 }
 
-export default Quiz;
+export default connect(({ quiz }) => ({ quiz }))(Quiz);

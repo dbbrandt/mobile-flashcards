@@ -4,7 +4,7 @@ import { Text, KeyboardAvoidingView, TextInput, Keyboard } from "react-native";
 import styles from "./styles";
 import TextButton from "./TextButton";
 import {createDeck} from "../utils/api";
-import {addDeck} from "../actions";
+import {addDeck} from "../actions/decks";
 
 class AddDeck extends Component {
   state = {
