@@ -1,10 +1,20 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { StyleSheet, View, Text } from "react-native";
-import {blue, gray, white} from "../utils/colors";
+import { blue, gray, white } from "../utils/colors";
 import { SimpleLineIcons, Ionicons } from "@expo/vector-icons";
 import TextButton from "./TextButton";
+import { attemptQuiz } from "../actions/quiz";
 
 class QuizResults extends Component {
+  handleRestart = () => {
+    const { dispatch } = this.props;
+    const { navigate } = this.props.navigation;
+    const { deck } = this.props.route.params;
+    dispatch(attemptQuiz({ deck }));
+    navigate("Quiz", { deck })
+  };
+
   render() {
     const { navigate } = this.props.navigation;
     const { deck, correct, answered } = this.props.route.params;
@@ -25,15 +35,13 @@ class QuizResults extends Component {
         <View style={styles.buttons}>
           <TextButton
             style={styles.restartButton}
-            onPress={() => {
-              navigate('Quiz', { deck, restart: true })
-            }}
+            onPress={this.handleRestart}
           >
             Restart Quiz
           </TextButton>
           <TextButton
             style={styles.deckButton}
-            onPress={() => navigate('Deck Detail')}
+            onPress={() => navigate("Deck Detail", { deck })}
           >
             Return to Deck
           </TextButton>
@@ -89,4 +97,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default QuizResults;
+export default connect()(QuizResults);

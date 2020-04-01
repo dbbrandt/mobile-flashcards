@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import CardDetail from "./CardDetail";
 import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
+import { attemptQuiz, completeQuiz, viewCard } from "../actions/quiz";
 
 const InitalData = {
   current: 0,
@@ -15,9 +17,12 @@ class Quiz extends Component {
   state = InitalData;
 
   componentDidMount() {
+    const { dispatch } = this.props;
+    const { deck } = this.props.route.params;
     this.handleInitQuiz();
     // When a user takes a quiz clear and reset their notification alert.
     clearLocalNotification().then(setLocalNotification());
+    dispatch(attemptQuiz({ deck }));
   }
 
   handleInitQuiz = () => {
@@ -32,6 +37,7 @@ class Quiz extends Component {
   handleSubmit = (card, correct) => {
     const { navigate } = this.props.navigation;
     const { deck } = this.props.route.params;
+    const { dispatch } = this.props;
     const {
       current,
       totalCards,
@@ -40,7 +46,9 @@ class Quiz extends Component {
       answerList
     } = this.state;
 
+    dispatch(viewCard({ deck, correct }));
     if (current + 1 >= totalCards) {
+      dispatch(completeQuiz({ deck }));
       navigate("Quiz Results", {
         deck,
         answered: answeredCount + 1,
@@ -72,4 +80,4 @@ class Quiz extends Component {
   }
 }
 
-export default Quiz;
+export default connect()(Quiz);

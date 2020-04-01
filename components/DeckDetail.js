@@ -17,15 +17,23 @@ class DeckDetail extends Component {
 
   render() {
     const { title, questions } = this.props.deck;
+    const { cards, correct, attempts, completions } = this.props
     const length = questions.length;
     const cardLabel = length !== 1 ? "cards" : "card";
     return (
       <View style={styles.container}>
         <View style={styles.detail}>
-          <Text style={{ fontSize: 30, padding: 10 }}>{title}</Text>
-          <Text style={{ fontSize: 20 }}>
+          <Text style={styles.deckHeading}>{title}</Text>
+          <Text style={{ fontSize: 20, marginBottom: 20, color: blue}}>
             ({length} {cardLabel})
           </Text>
+
+          <Text style={styles.resultsHeading}>Cards</Text>
+          <Text style={styles.results}>Answers: {cards}</Text>
+          <Text style={styles.results}>Correct: {correct}%</Text>
+          <Text style={styles.resultsHeading}>Quizes</Text>
+          <Text style={styles.results}>Started: {attempts}</Text>
+          <Text style={styles.results}>Completed: {completions}</Text>
         </View>
         <View style={styles.buttons}>
           <TextButton style={styles.addButton} onPress={this.handleAddCard}>
@@ -44,10 +52,15 @@ class DeckDetail extends Component {
   }
 }
 
-const mapStateToProps = ({ decks }, props) => {
+const mapStateToProps = ({ decks, quiz }, props) => {
   const { title } = props.route.params;
+  const { cards, correct, attempts, completions } = quiz[title];
   return {
     ...props,
+    cards,
+    correct: (100 * correct / cards ).toFixed(0),
+    attempts,
+    completions,
     deck: decks[title]
   }
 };
@@ -64,6 +77,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  deckHeading: {
+    fontSize: 30,
+    marginTop: 200,
+    padding: 10,
+    color: blue
+  },
+  resultsHeading: {
+    marginTop: 10,
+    fontSize: 25,
+    color: gray
+  },
+  results: {
+    fontSize: 20,
+    color: gray
   },
   buttons: {
     flex: 1,
