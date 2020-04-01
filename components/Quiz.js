@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import CardDetail from "./CardDetail";
 import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
-import { completeQuiz, startQuiz } from "../actions/quiz";
 
 const InitalData = {
   current: 0,
@@ -24,8 +22,6 @@ class Quiz extends Component {
 
   handleInitQuiz = () => {
     const { deck } = this.props.route.params;
-    const { dispatch } = this.props;
-    dispatch(startQuiz());
     this.setState({
       ...InitalData,
       currentTitle: deck.title,
@@ -34,7 +30,6 @@ class Quiz extends Component {
   };
 
   handleSubmit = (card, correct) => {
-    const { dispatch } = this.props;
     const { navigate } = this.props.navigation;
     const { deck } = this.props.route.params;
     const {
@@ -46,7 +41,6 @@ class Quiz extends Component {
     } = this.state;
 
     if (current + 1 >= totalCards) {
-      dispatch(completeQuiz());
       navigate("Quiz Results", {
         deck,
         answered: answeredCount + 1,
@@ -65,15 +59,11 @@ class Quiz extends Component {
 
   render() {
     const { deck } = this.props.route.params;
-    const { completed } = this.props.quiz;
     const { current, totalCards } = this.state;
     const card = deck.questions[current];
-    if (completed) {
-    }
     return (
       <CardDetail
         card={card}
-        completed={completed}
         current={current}
         totalCards={totalCards}
         onSubmit={this.handleSubmit}
@@ -82,4 +72,4 @@ class Quiz extends Component {
   }
 }
 
-export default connect(({ quiz }) => ({ quiz }))(Quiz);
+export default Quiz;

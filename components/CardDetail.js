@@ -1,16 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import TextButton from "./TextButton";
 import { crimson, forestGreen, white, blue } from "../utils/colors";
 
-
-Completed = () => {
-  return (
-    <View style={styles.detail}>
-      <Text style={{ fontSize: 30, padding: 10, textAlign: "center" }}>Quiz Completed</Text>
-    </View>
-  );
-};
 
 class CardDetail extends Component {
   state = {
@@ -33,7 +25,6 @@ class CardDetail extends Component {
 
   render() {
     const { card, onSubmit, current, totalCards, completed } = this.props;
-    if (completed) return <Completed/>;
     const { text, flipText } = this.getText(card);
     return (
       <View style={styles.container}>
