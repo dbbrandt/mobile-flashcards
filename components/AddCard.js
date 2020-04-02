@@ -28,6 +28,7 @@ class AddCard extends Component {
     const { question, answer } = this.state;
     return (
       <KeyboardAvoidingView
+        keyboardVerticalOffset={-110}
         behavior="padding"
         style={styles.container}
       >

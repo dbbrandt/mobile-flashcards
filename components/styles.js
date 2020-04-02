@@ -1,5 +1,5 @@
-import {StyleSheet} from "react-native";
-import {blue, crimson, gray, white} from "../utils/colors";
+import { StyleSheet, Platform } from "react-native";
+import { blue, gray, white } from "../utils/colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     width: 300,
     borderColor: gray,
     borderWidth: 1,
-    margin: 20,
+    margin: 10,
     padding: 10
   },
   button: {
@@ -40,4 +40,3 @@ const styles = StyleSheet.create({
 });
 
 export default styles;
-
