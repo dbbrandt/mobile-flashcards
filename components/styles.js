@@ -1,5 +1,5 @@
 import {StyleSheet} from "react-native";
-import {blue, gray, white} from "../utils/colors";
+import {blue, crimson, gray, white} from "../utils/colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    width: 400,
+    width: 300,
     borderColor: gray,
     borderWidth: 1,
     margin: 20,
@@ -22,6 +22,20 @@ const styles = StyleSheet.create({
     margin: 5,
     color: white,
     backgroundColor: blue
+  },
+  deleteButtons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 150
+  },
+  deleteButton: {
+    marginTop: 10,
+    fontSize: 10,
+    width: 70,
+    height: 35,
+    padding: 5,
+    color: white,
+    backgroundColor: gray
   }
 });
 

@@ -17,7 +17,7 @@ class AddCard extends Component {
     const { question, answer } = this.state;
     const card = { question, answer };
     saveCard(deck, card).then(() => dispatch(addCard({ deck, card })));
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('');
   };
 
   handleChange = (target, text) => {
@@ -28,7 +28,6 @@ class AddCard extends Component {
     const { question, answer } = this.state;
     return (
       <KeyboardAvoidingView
-        keyboardVerticalOffset={50}
         behavior="padding"
         style={styles.container}
       >

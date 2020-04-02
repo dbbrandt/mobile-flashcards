@@ -32,6 +32,7 @@ const NoDecks = () => {
 class DeckList extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
+    initDecks();
     retrieveDecks().then(decks => dispatch(setDecks(decks)));
     setLocalNotification();
   }
