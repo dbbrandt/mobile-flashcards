@@ -64,13 +64,13 @@ class AddDeck extends Component {
             style={styles.deleteButton}
             onPress={() => this.handleInitDecks({})}
           >
-            Delete All Decks
+            Delete All
           </TextButton>
           <TextButton
             style={styles.deleteButton}
             onPress={() => this.handleInitDecks()}
           >
-            Set Test Decks
+            Test Data
           </TextButton>
         </View>
       </KeyboardAvoidingView>

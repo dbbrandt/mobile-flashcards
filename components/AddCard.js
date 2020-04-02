@@ -17,7 +17,7 @@ class AddCard extends Component {
     const { question, answer } = this.state;
     const card = { question, answer };
     saveCard(deck, card).then(() => dispatch(addCard({ deck, card })));
-    this.props.navigation.navigate('');
+    this.props.navigation.navigate('Deck Detail', { deck });
   };
 
   handleChange = (target, text) => {

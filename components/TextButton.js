@@ -1,18 +1,25 @@
-import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from "react";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { lightGray } from "../utils/colors";
 
-export default function TextButton ({ children, onPress, disabled=false, style = {} }) {
+export default function TextButton({
+  children,
+  onPress,
+  disabled = false,
+  style = {}
+}) {
   const bgColor = disabled ? lightGray : style.backgroundColor;
   return (
     <TouchableOpacity onPress={onPress} disabled={disabled}>
-      <Text style={[styles.text, style, {backgroundColor: bgColor}]}>{children}</Text>
+      <Text style={[styles.text, style, { backgroundColor: bgColor }]}>
+        {children}
+      </Text>
     </TouchableOpacity>
-  )
-};
+  );
+}
 
 const styles = StyleSheet.create({
   text: {
-    textAlign: 'center'
+    textAlign: "center"
   }
 });
