@@ -3,7 +3,6 @@ import React from "react";
 import { AsyncStorage } from "react-native";
 import { Notifications } from "expo";
 import * as Permissions from "expo-permissions";
-import {addNotification} from "../actions/decks";
 
 const NOTIFICATION_KEY = 'FlashCards:notifications';
 

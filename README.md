@@ -1,160 +1,112 @@
 # Mobile Flashcards
 
-This ReactNative/Redux app is a flash card mobile app that allows the users to creat and study decks of cards. 
-This app uses local storage on the device to store decks with data stored in memory representing the valid users and preloaded questions.
-The goal of the application is for you user to add new question and answer existing questions to accumulate points.
-A point is awared for every question added and every question answered.
+This ReactNative/Redux app is a flash card mobile app that allows the users to creat and study decks of flashcards. 
+This app uses local storage on the device to store decks. The goal of the application is for you user to add new 
+decks and new cards and then take a quiz on the their flash cards. At the end of the quiz, their results 
+for the quiz are displayed. Their cummulative resutls are also displayed on the deck details page.
 
-To use the app, login by selecting on of three predefined users and clicking login. On the home page you can view 
-all the questions devided into two categories, those answered and those not answered by your user.
-Answer questions by clicking the un-answered category and then the answer button on the question you want to answer.
-You can view the results of all users answers to questions once you answer a question by clicking on the view button
-in a quesiton on the home page. Add questions and review the leader board.  
+# Instruction for Device Installation
+
+The application is built using Expo and can be accessed by downloading Expo onto your mobile device and going the the
+following link: https://expo.io/@dbbrandt/mobile-flashcards
+For Android users, use the "Scan QR Code" feature in the expo Projects tab to download and launch the application.
+For iOS users, open the camera and place the QR code in the frame. Click the notificaiton that appears to download and 
+launch the app.    
+
+## Features
+* Add decks which can hold an unlimited number of cards.
+    * Option to load some test data (overwrites current data)
+    * Option to clear all data including all decks and results metrics.
+* View the deck showing the users aggregate usage and quiz results. 
+    * Add a card to a specific deck.
+    * Start a quiz session.
+    * Reset the aggregate quiz metrics
+* View flash cards
+    * Flip flash card by clicking in the text areas of the card.
+    * Indicate correct or incorrect by clicking the appropriate button.
+    * The next card will show automatically after selecting correct or incorrect.
+    * The results will show after the final card is submitted.
+* Quiz Results
+    * Shows the Score and number of cards viewed and number correct.
+    * Button to restart the quiz. Clicking back will also restart.
+    * Button to return to the deck details which shows the aggregate results for that deck.
+* Reminder Notification
+    * Notification when not in the application to study sent daily
+    * Studying any quiz will clear today notification
+    * Note: Scheduling in this way is currently depricated and may snow a warning on iOS.
+
+## Testing Performed
+
+The app was tested on emulators and physical devices.
+OS: iOS 13.4, Andriod 10.
+
+Emulators: 
+* iPhone 8
+* iPhone 11 pro Max
+* Android  Nexus 5s
+* Andriod Pixel 2
+
+Devices:
+* iPhone Xs Max
+* Samsung Galaxy S7 Edge
+* Samsung Glalzxy S8+
 
 
-## TL;DR
+## Local Installation and Testing Setup
 
 To install and run the app:
-* Clone the repo
-* Change directory to reactnd-project-would-you-rather
-* install all project dependencies with `npm install` 
-* start the development server with `npm start`
+* Install expo and the emulators you want to use for iOS and Android.
+* Clone the repo: https://github.com/dbbrandt/mobile-flashcards.git
+* Change directory to mobile-flashcards
+* install all project dependencies with `yarn install`  or `npm install`
+* start the development server with `yarn start` or `npm start`
+* In the browser Metro Builder, select Run on Android or Run on iOS. To run on a physical device you can 
+scan the bar code on the Metro Builder page as described in Device Installation above.
 
 ## Architectural Notes
+* This project uses ReactNative 36.x and React Navigation 5.x. 
 * This project uses @reduxjs/toolkit for simplifying actions and reducers, particulary to make the reducers 
 more intuitive supporting direct state mutation. 
-* This uses the react-redux-loading-bar rather then the custom one provided in class to eliminate deprication warnings.
 * A custom logging middleware provided in class is used.
-* Specific CSS files, while still global, are placed in their responstive component directories for easier maintenance. 
+* StyleSheets used are a mix of a global object (./components/styles.js) and StyleSheets local to components
+or in-line. 
 
 ## Files in this project
 ```bash
-├── CONTRIBUTING.md
 ├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with the Udacity api.
+├── app.json - Expo app settings
+├── App.js - Main application. Sets up the redux store and the Navigation stack screens (routes).
 ├── package.json # npm package manager file.
-├── package-lock.json # npm package manager file.
-├── public
-│   ├── favicon.ico # React Icon
-│   ├── manifest.json
-│   ├── robots.txt
-│   └── index.html 
-└── src
-    ├── decks.js # Main javascript file to render the React app and setup the Redux store
-    ├── index.css # Styles for the app. Sets up the responsive grid layout of the app layout sections.
-    │             # Sections are Header, Navigation, Main and Footer. The routes are rendered in the main section.
-    ├── actions  
-    ├── assets # various images include some addtional avatars that can be copied to pubic to vary the three users.
-    ├── components
-    │    ├── App.js # Container component for the routes and basic security
-    │    ├── App.css 
-    │    ├── dashboard # components and styles for homepage
-    │    ├── footer  # component and style for simple static footer
-    │    ├── heading # component and style for dynamic header with user info
-    │    ├── leader-board # components and style for leader board 
-    │    ├── login # Login, Logout and NotFound components
-    │    ├── nav # Responsive navigation bar with links to routes and dynamicly changing login/logout menu link
-    │    └── question # The various question forms, QuestionAnswer, QuestionView and QuestionAdd
-    ├── middleware 
-    ├── reducers
-    └── utils # A think API.js file wraps the provided _DATA.js simulated API and helpers.js includes some 
-                functions to calculate the leaderboard stats which are also used in the header for the current user.
+├── yarn.lock # package manager file.
+├── assets
+│   ├── icon.png # Expo app icon
+│   └── splash.png # Span image
+└── actions  # reduxjs/toolkit actions using createAction
+│   ├── decks.js # Deck storage and updates
+│   └── quiz.js  # Quiz metrics storage and updates
+├── components
+│    ├── AddCard.js 
+│    ├── AddDeck.js 
+│    ├── CardDetail.js # Display a card and supporting card flip. Subcomponent of Quiz.js
+│    ├── DeckDetail.js # Display Quiz results for the deck, add card and start quiz.
+│    ├── DeckList.js # Main screen 
+│    ├── NavBar.js # Setup of the main page Tab Navigation (DeckList and AddDeck) 
+│    ├── Quiz.js # Handle quiz card submission, loop through cards and navigate to QuizResults.
+│    ├── QuizResults.js
+│    ├── sytles.js # Some styles shared across pages. Some styles remain in components and could be refactored here.
+│    └── TextButton.js # a customizable text button which handles disabling
+├── middleware # Redux middleware
+│   ├── index.js 
+│   └── logger.js  # Custon Redux logging 
+├── reducers # reduxjs/toolkit reducers using createReducer
+│   ├── index.js 
+│   ├── decks.js 
+│   └── quiz.js  
+├── utils 
+│   ├── api.js # AsyncStorage functions for deck persistence 
+│   ├── colors.js # shared color definitions 
+│   └── helpers.js # Expo notification helper functions  
+
 ```
 
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
-
-
-## Data
-
-There are two types of objects stored in our database:
-
-* Users
-* Questions
-
-### Users
-
-Users include:
-
-| Attribute    | Type             | Description           |
-|-----------------|------------------|-------------------         |
-| id                 | String           | The user’s unique identifier |
-| name          | String           | The user’s first name  and last name     |
-| avatarURL  | String           | The path to the image file |
-| questions | Array | A list of ids of the polling questions this user created|
-| answers      | Object         |  The object's keys are the ids of each question this user answered. The value of each key is the answer the user selected. It can be either `'optionOne'` or `'optionTwo'` since each question has two options.
-
-### Questions
-
-Questions include:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| id                  | String | The question’s unique identifier |
-| author        | String | The author’s unique identifier |
-| timestamp | String | The time when the question was created|
-| optionOne | Object | The first voting option|
-| optionTwo | Object | The second voting option|
-
-### Voting Options
-
-Voting options are attached to questions. They include:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| votes             | Array | A list that contains the id of each user who voted for that option|
-| text                | String | The text of the option |
-
-Your code will talk to the database via 4 methods:
-
-* `_getUsers()`
-* `_getQuestions()`
-* `_saveQuestion(question)`
-* `_saveQuestionAnswer(object)`
-
-1) `_getUsers()` Method
-
-*Description*: Get all of the existing users from the database.  
-*Return Value*: Object where the key is the user’s id and the value is the user object.
-
-2) `_getQuestions()` Method
-
-*Description*: Get all of the existing questions from the database.  
-*Return Value*: Object where the key is the question’s id and the value is the question object.
-
-3) `_saveQuestion(question)` Method
-
-*Description*: Save the polling question in the database.  
-*Parameters*:  Object that includes the following properties: `author`, `optionOneText`, and `optionTwoText`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| author | String | The id of the user who posted the question|
-| optionOneText| String | The text of the first option |
-| optionTwoText | String | The text of the second option |
-
-*Return Value*:  An object that has the following properties: `id`, `author`, `optionOne`, `optionTwo`, `timestamp`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| id | String | The id of the question that was posted|
-| author | String | The id of the user who posted the question|
-| optionOne | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option|
-| optionTwo | Object | The object has a text property and a votes property, which stores an array of the ids of the users who voted for that option|
-|timestamp|String | The time when the question was created|
-
-4) `_saveQuestionAnswer(object)` Method
-
-*Description*: Save the answer to a particular polling question in the database.
-*Parameters*: Object that contains the following properties: `authedUser`, `qid`, and `answer`. More details about these properties:
-
-| Attribute | Type | Description |
-|-----------------|------------------|-------------------|
-| authedUser | String | The id of the user who answered the question|
-| qid | String | The id of the question that was answered|
-| answer | String | The option the user selected. The value should be either `"optionOne"` or `"optionTwo"`|
-
-## Contributing
-
-This repository is the starter code for *all* Udacity students. Therefore, we most likely will not accept pull requests. For details, check out [CONTRIBUTING.md](https://github.com/udacity/reactnd-project-would-you-rather-starter/blob/master/CONTRIBUTING.md).
-# reactnd-project-would-you-rather
