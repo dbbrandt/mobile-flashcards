@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   deckHeading: {
     fontSize: 30,
-    marginTop: 100,
+    marginTop: 50,
     padding: 10,
     color: blue
   },
