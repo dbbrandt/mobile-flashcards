@@ -6,6 +6,7 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import AddDeck from "./AddDeck";
 import DeckList from "./DeckList";
 import {blue, white, gray, lightBlue} from "../utils/colors";
+import Fade from "./Fade";
 
 // Options passed into Tab.Screen
 const DecksTabIcon = {
@@ -52,6 +53,11 @@ export const NavBar = () => {
       <Tabs.Screen
         name="Add Deck"
         component={AddDeck}
+        options={AddDeckIcon}
+      />
+      <Tabs.Screen
+        name="Fade"
+        component={Fade}
         options={AddDeckIcon}
       />
     </Tabs.Navigator>
