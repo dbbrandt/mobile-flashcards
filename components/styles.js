@@ -23,19 +23,26 @@ const styles = StyleSheet.create({
     color: white,
     backgroundColor: blue
   },
+  addButton: {
+    width: 150,
+    height: 40,
+    padding: 10,
+    margin: 5,
+    color: white,
+    backgroundColor: blue
+  },
   deleteButtons: {
+    opacity: .2,
     flexDirection: "row",
     justifyContent: "space-between",
-    width: 150
+    marginTop: 40
   },
   deleteButton: {
-    marginTop: 10,
-    fontSize: 10,
+    margin: 10,
+    fontSize: 15,
     width: 70,
-    height: 35,
-    padding: 10,
-    color: white,
-    backgroundColor: gray
+    height: 20,
+    color: "#000",
   }
 });
 

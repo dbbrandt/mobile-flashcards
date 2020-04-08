@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start"
+    justifyContent: "center"
+
   },
   restartButton: {
     width: 150,
     height: 40,
     padding: 10,
-    marginTop: 50,
-    marginBottom: 5,
+    margin: 5,
     color: white,
     backgroundColor: blue
   },
