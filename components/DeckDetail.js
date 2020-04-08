@@ -39,10 +39,12 @@ class DeckDetail extends Component {
           <Text style={styles.results}>Started: {attempts}</Text>
           <Text style={styles.results}>Completed: {completions}</Text>
         </View>
-        <View style={styles.buttons}>
+        <View style={{margin: 10}}>
           <TextButton style={styles.resetButton} onPress={() => this.handleReset(deck)}>
             Reset
           </TextButton>
+        </View>
+        <View style={styles.buttons}>
           <TextButton style={styles.addButton} onPress={() => this.handleAddCard(deck)}>
             Add Card
           </TextButton>
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
   },
   deckHeading: {
     fontSize: 30,
-    marginTop: 100,
+    marginTop: 50,
     padding: 10,
     color: blue
   },
@@ -104,7 +106,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   resetButton: {
-    marginBottom: 80,
     margin: 10,
     padding: 5,
     color: white,

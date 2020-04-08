@@ -10,7 +10,7 @@ export default function TextButton({
 }) {
   const bgColor = disabled ? lightGray : style.backgroundColor;
   return (
-    <TouchableOpacity onPress={onPress} disabled={disabled}>
+    <TouchableOpacity style={{borderRadius: 10, backgroundColor: bgColor, margin: 5 }} onPress={onPress} disabled={disabled}>
       <Text style={[styles.text, style, { backgroundColor: bgColor }]}>
         {children}
       </Text>
