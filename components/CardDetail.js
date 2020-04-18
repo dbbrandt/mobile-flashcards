@@ -15,9 +15,12 @@ import {
   darkBlue
 } from "../utils/colors";
 
+const FRONT = "QUESTION";
+const BACK = "ANSWER";
+
 class CardDetail extends Component {
   state = {
-    face: "Answer",
+    face: FRONT,
     frontAnimation: new Animated.Value(1),
     backAnimation: new Animated.Value(0),
     rotation: new Animated.Value(0),
@@ -30,58 +33,72 @@ class CardDetail extends Component {
     this.state.duration = 500;
   }
 
-  handleFlip = (
-    onFront = true,
-    frontVal = 0,
-    backVal = 1,
-    rotationVal = 3,
-    rotationBackVal = 0
-  ) => {
+  handleFlip = () => {
     const {
+      face,
       frontAnimation,
       backAnimation,
       rotation,
       rotationBack,
       duration
     } = this.state;
+    const toFace = face === FRONT ? BACK : FRONT;
+
+    // Animation rotation toValues
+    // Default to transition to BACK
+    let frontVal = 1;
+    let backVal = 0;
+    let rotationVal = 0;
+    let rotationBackVal = 3;
+    if (toFace === BACK) {
+      frontVal = 0;
+      backVal = 1;
+      rotationVal = 3;
+      rotationBackVal = 0;
+    };
+
     Animated.timing(frontAnimation, {
       toValue: frontVal,
       duration: duration
     }).start();
+
     Animated.timing(backAnimation, {
       toValue: backVal,
       duration: duration
     }).start();
+
     Animated.timing(rotation, {
       toValue: rotationVal,
       duration: duration
     }).start();
+
     Animated.timing(rotationBack, {
       toValue: rotationBackVal,
       duration: duration
     }).start();
 
-    onFront
-      ? this.setState({
-          face: "Question",
-          handleFlip: () => this.handleFlip(false, 1, 0, 0, 3)
-        })
-      : this.setState({
-          face: "Answer",
-          handleFlip: () => this.handleFlip()
-        });
+    this.setState({face: toFace});
+  };
+
+  handleSubmit = (card, correct) => {
+    const { face } = this.state;
+    console.log("CardDetails handleSubmit face: ", face);
+    this.setState({face: FRONT});
+    if (face === BACK) this.handleFlip();
+    this.props.onSubmit(card, correct)
   };
 
   render() {
-    const { card, onSubmit, current, totalCards } = this.props;
+    const { card, current, totalCards } = this.props;
     const {
       face,
-      handleFlip,
       frontAnimation,
       backAnimation,
       rotation,
       rotationBack
     } = this.state;
+    const toFace = face === FRONT ? BACK : FRONT;
+    console.log("CardDetails Render face: ", face);
     const { question, answer } = card;
     return (
       <View style={styles.container}>
@@ -116,19 +133,19 @@ class CardDetail extends Component {
             </View>
           </View>
         </View>
-        <TouchableOpacity onPress={handleFlip}>
-          <Text style={styles.textType}>{face}</Text>
+        <TouchableOpacity onPress={this.handleFlip}>
+          <Text style={styles.textType}>{toFace}</Text>
         </TouchableOpacity>
         <View style={styles.buttons}>
           <TextButton
             style={styles.correctButton}
-            onPress={() => onSubmit(card, true)}
+            onPress={() => this.handleSubmit(card, true)}
           >
             Correct!
           </TextButton>
           <TextButton
             style={styles.incorrectButton}
-            onPress={() => onSubmit(card, false)}
+            onPress={() => this.handleSubmit(card, false)}
           >
             Incorrect
           </TextButton>
